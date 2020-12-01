@@ -27,6 +27,7 @@ def prod_of_three(numbers_counter, target):
         ret = prod_of_two(numbers_counter, remain_target)
         if ret is not None:
             return ret*n
+        numbers_counter[n] += 1
 
 
 if __name__ == '__main__':
