@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from pathlib import Path
 from collections import defaultdict
+from functools import partial
 from itertools import product
+from pathlib import Path
 
 
 def load_input(path):
@@ -18,10 +19,9 @@ def load_input(path):
     return actives
 
 
-def adjacent(coord):
-    deltas = (1, -1, 0)
+def adjacent(coord, deltas):
     adjs = []
-    for delta in product(*[deltas] * len(coord)):
+    for delta in deltas:
         new_coord = tuple(a + b for a, b in zip(coord, delta))
         if new_coord != coord:
             adjs.append(new_coord)
@@ -60,5 +60,11 @@ def simulate(initial_state, adj_func, n):
 if __name__ == '__main__':
     initial_state = load_input("day-17-input.txt")
     print(initial_state)
-    print(simulate([expand(s, 3) for s in initial_state], adjacent, 6))
-    print(simulate([expand(s, 4) for s in initial_state], adjacent, 6))
+    print(
+        simulate([expand(s, 3) for s in initial_state],
+                 partial(adjacent, deltas=list(product(*[(1, 0, -1)] * 3))),
+                 6))
+    print(
+        simulate([expand(s, 4) for s in initial_state],
+                 partial(adjacent, deltas=list(product(*[(1, 0, -1)] * 4))),
+                 6))
