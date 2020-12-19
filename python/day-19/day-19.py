@@ -3,7 +3,7 @@
 
 from pathlib import Path
 from collections import defaultdict
-from itertools import combinations
+from itertools import combinations, product
 
 
 def load_input(path):
@@ -38,11 +38,13 @@ def string_partitions(string, n):
     return partitions
 
 
-def is_valid(string, rules):
+def is_valid(string, rules, basic_rule=0, known_rules=None):
     def valid_for_rule(substring, rule, memory):
         key = (substring, rule)
         if key in memory:
             return memory[key]
+        elif known_rules is not None and rule in known_rules:
+            return known_rules[rule](substring)
         # basic case: reach a basic rule
         elif isinstance(rules[rule], str):
             if rules[rule] == substring:
@@ -65,32 +67,69 @@ def is_valid(string, rules):
                 ret = False
         return ret
 
-    result = valid_for_rule(string, 0, {})
+    result = valid_for_rule(string, basic_rule, {})
     return result
 
 
-def part_1(rules, inputs):
-    return sum(is_valid(string, rules) for string in inputs)
+def part_1(rules, inputs, basic_rule=0):
+    return sum(is_valid(string, rules, basic_rule) for string in inputs)
+
+
+def possible_strings(r, rules):
+    if isinstance(r, str):
+        return [r]
+    ways = []
+    for subrules in rules[r]:
+        for prod in product(*[possible_strings(xr, rules) for xr in subrules]):
+            base = []
+            for p in prod:
+                base += p
+            ways.append("".join(base))
+    return ways
 
 
 def part_2(rules, inputs):
-    def part2_is_valid(string, rules, max_i, max_j):
-        for i in range(1, max_i):
-            for j in range(1, max_j):
-                rules[8] = [[42] * i]
-                rules[11] = [[42] * j + [31] * j]
-                if is_valid(string, rules):
-                    print("{} is valid for 8:{}, 11:{}".format(string, i, j))
-                    return True
-                else:
-                    print("{} is invalid for 8:{}, 11:{}".format(string, i, j))
-        return False
+    ways_of_42 = possible_strings(42, rules)
+    assert part_1(rules, ways_of_42, basic_rule=42) == len(ways_of_42)
+    ways_of_31 = possible_strings(31, rules)
+    assert part_1(rules, ways_of_31, basic_rule=31) == len(ways_of_31)
 
-    valid_cnt = 0
-    for string in inputs:
-        if part2_is_valid(string, rules, 10, 3):
-            valid_cnt += 1
-    return valid_cnt
+    # luckily, all ways of 42/31 has the same length of 8
+    def valid_for_42(substring):
+        return substring in ways_of_42
+
+    def valid_for_31(substring):
+        return substring in ways_of_31
+
+    def valid_for_8(substring):
+        if len(substring) % 8 != 0:
+            return False
+        if len(substring) == 8:
+            if substring in ways_of_42:
+                return True
+            else:
+                return False
+        return valid_for_8(substring[:8]) and valid_for_8(substring[8:])
+
+    def valid_for_11(substring):
+        if len(substring) % 16 != 0:
+            return False
+        if len(substring) == 16:
+            if substring[:8] in ways_of_42 and substring[8:] in ways_of_31:
+                return True
+            else:
+                return False
+        return valid_for_11(substring[:8] + substring[-8:]) and valid_for_11(
+            substring[8:-8])
+
+    known_rules = {
+        42: valid_for_42,
+        31: valid_for_31,
+        8: valid_for_8,
+        11: valid_for_11
+    }
+    return sum(
+        is_valid(string, rules, 0, known_rules) for string in inputs)
 
 
 if __name__ == '__main__':
