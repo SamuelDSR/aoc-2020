@@ -6,7 +6,8 @@ import numpy as np
 
 
 def load_input(path):
-    with Path(path).open('r') as f:
+    input_path = Path(__file__).parent / "input.txt"
+    with input_path.open("r") as f:
         lines = f.readlines()
     return np.array([list(ln.strip()) for ln in lines])
 

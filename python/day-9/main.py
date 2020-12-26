@@ -5,8 +5,9 @@ from pathlib import Path
 from collections import deque, defaultdict
 
 
-def load_input(path):
-    with Path(path).open('r') as f:
+def load_input():
+    input_path = Path(__file__).parent / "input.txt"
+    with Path(input_path).open('r') as f:
         lines = f.readlines()
     return [int(l.strip()) for l in lines]
 
@@ -47,6 +48,6 @@ def part_2(numbers, target):
 
 
 if __name__ == '__main__':
-    numbers = load_input("day-9-input.txt")
+    numbers = load_input()
     target = part_1(numbers, 25)
     print(part_2(numbers, target))

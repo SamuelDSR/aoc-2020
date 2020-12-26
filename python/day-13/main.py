@@ -4,8 +4,9 @@
 from pathlib import Path
 
 
-def load_input(path):
-    with Path(path).open('r') as f:
+def load_input():
+    input_path = Path(__file__).parent / "input.txt"
+    with Path(input_path).open('r') as f:
         lines = f.readlines()
     arrival_time = int(lines[0])
     bus_ids_offsets = []
@@ -67,7 +68,7 @@ def part_2(bus_ids_offsets):
 
 
 if __name__ == '__main__':
-    arrival_time, bus_ids_offsets = load_input("day-13-input.txt")
+    arrival_time, bus_ids_offsets = load_input()
     print(part_1(arrival_time, bus_ids_offsets))
     assert part_2([(0, 17), (2, 13), (3, 19)]) == 3417
     assert part_2([(0, 67), (1, 7), (2, 59), (3, 61)]) == 754018

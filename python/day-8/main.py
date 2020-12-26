@@ -4,8 +4,9 @@
 from pathlib import Path
 
 
-def load_input(path):
-    with Path(path).open('r') as f:
+def load_input():
+    input_path = Path(__file__).parent / "input.txt"
+    with Path(input_path).open('r') as f:
         lines = f.readlines()
     instructions = []
     for ln in lines:
@@ -67,6 +68,6 @@ def part_2(instructions):
 
 
 if __name__ == '__main__':
-    instructions = load_input("day-8-input.txt")
+    instructions = load_input()
     print(part_1(instructions))
     print(part_2(instructions))

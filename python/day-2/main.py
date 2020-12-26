@@ -5,8 +5,9 @@ from pathlib import Path
 from collections import Counter
 
 
-def load_input(path):
-    with Path(path).open('r') as f:
+def load_input():
+    input_path = Path(__file__).parent / "input.txt"
+    with input_path.open("r") as f:
         lines = f.readlines()
     problems = []
     for ln in lines:
@@ -32,7 +33,7 @@ def valid_passwd_part_two(pwd, letter, pos1, pos2):
 
 
 if __name__ == '__main__':
-    problems = load_input("day-2-input.txt")
+    problems = load_input()
     valid = 0
     for p in problems:
         if valid_passwd_part_one(*p):

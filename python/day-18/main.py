@@ -4,8 +4,9 @@ import re
 from pathlib import Path
 
 
-def load_input(path):
-    with Path(path).open('r') as f:
+def load_input():
+    input_path = Path(__file__).parent / "input.txt"
+    with Path(input_path).open('r') as f:
         lines = f.readlines()
     pattern = re.compile(r'(\d+|\+|\(|\)|\*)')
     return [pattern.findall(ln) for ln in lines]
@@ -80,7 +81,7 @@ def part_2(programs):
 
 
 if __name__ == '__main__':
-    programs = load_input("day-18-input.txt")
+    programs = load_input()
     assert run(["1", "+", "2", "*", "3", "+", "4", "*", "5", "+", "6"],
                lambda x: 1, arthmetic_evaluation) == 71
     print(part_1(programs))

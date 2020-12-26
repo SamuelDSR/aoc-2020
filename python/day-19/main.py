@@ -6,8 +6,9 @@ from collections import defaultdict
 from itertools import combinations, product
 
 
-def load_input(path):
-    with Path(path).open("r") as f:
+def load_input():
+    input_path = Path(__file__).parent / "input.txt"
+    with Path(input_path).open("r") as f:
         lines = f.readlines()
     idx = lines.index("\n")
     rules = defaultdict(list)
@@ -137,6 +138,6 @@ if __name__ == '__main__':
     assert len(string_partitions("samuel", 1)) == 1
     assert len(string_partitions("samuel", 7)) == 0
 
-    rules, inputs = load_input("day-19-input.txt")
+    rules, inputs = load_input()
     print(part_1(rules, inputs))
     print(part_2(rules, inputs))

@@ -3,8 +3,9 @@
 from pathlib import Path
 from collections import Counter
 
-def load_input(path):
-    with Path(path).open('r') as f:
+def load_input():
+    input_path = Path(__file__).parent / "input.txt"
+    with input_path.open("r") as f:
         lines = f.readlines()
     return lines
 
@@ -32,7 +33,7 @@ def prod_of_three(numbers_counter, target):
 
 if __name__ == '__main__':
     numbers = Counter([
-        int(n) for n in load_input('day-1-input.txt')
+        int(n) for n in load_input()
     ])
     answer = prod_of_two(numbers, 2020)
     print(answer)

@@ -8,8 +8,9 @@ contain_regex = re.compile(r'(([0-9]+) (\w+ (\w+))?) bags?[,\.]')
 mainbag_regex = re.compile(r'(^\w+ (\w+)?) bags?')
 
 
-def load_input(path):
-    with Path(path).open('r') as f:
+def load_input():
+    input_path = Path(__file__).parent / "input.txt"
+    with Path(input_path).open('r') as f:
         lines = f.readlines()
     bag_rules = {}
     for ln in lines:
@@ -51,6 +52,6 @@ def part_2(bag_rules, target="shiny gold"):
 
 
 if __name__ == '__main__':
-    bag_rules, n = load_input("day-7-input.txt")
+    bag_rules, n = load_input()
     print(part_1(bag_rules))
     print(part_2(bag_rules))

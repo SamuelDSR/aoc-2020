@@ -5,8 +5,9 @@ from pathlib import Path
 from collections import defaultdict
 
 
-def load_input(path):
-    with Path(path).open('r') as f:
+def load_input():
+    input_path = Path(__file__).parent / "input.txt"
+    with Path(input_path).open('r') as f:
         lines = f.readlines()
 
     def _parse_rules(ln):
@@ -78,7 +79,7 @@ def part_2(ticket, rules, nearby_tickets):
 
 
 if __name__ == '__main__':
-    rules, ticket, nearby_tickets = load_input("day-16-input.txt")
+    rules, ticket, nearby_tickets = load_input()
     invalid_sum, invalid_ticket_idx = part_1(rules, nearby_tickets)
     print(invalid_sum, invalid_ticket_idx)
     valid_nearby_tickets = [

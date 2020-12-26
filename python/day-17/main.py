@@ -7,8 +7,9 @@ from itertools import product
 from pathlib import Path
 
 
-def load_input(path):
-    with Path(path).open('r') as f:
+def load_input():
+    input_path = Path(__file__).parent / "input.txt"
+    with Path(input_path).open('r') as f:
         lines = f.readlines()
     actives = set()
     for i in range(len(lines)):
@@ -58,7 +59,7 @@ def simulate(initial_state, adj_func, n):
 
 
 if __name__ == '__main__':
-    initial_state = load_input("day-17-input.txt")
+    initial_state = load_input()
     print(initial_state)
     print(
         simulate([expand(s, 3) for s in initial_state],

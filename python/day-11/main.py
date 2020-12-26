@@ -6,8 +6,9 @@ from pathlib import Path
 DIRS = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, -1), (1, 1), (-1, 1), (-1, -1)]
 
 
-def load_input(path):
-    with Path(path).open('r') as f:
+def load_input():
+    input_path = Path(__file__).parent / "input.txt"
+    with Path(input_path).open('r') as f:
         lines = f.readlines()
     return [list(ln.strip()) for ln in lines]
 
@@ -73,7 +74,7 @@ def simulate(grid, target, adjacent_func):
 
 
 if __name__ == '__main__':
-    grid = load_input("day-11-input.txt")
+    grid = load_input()
     print(simulate(grid, 4, adjacent))
-    grid = load_input("day-11-input.txt")
+    grid = load_input()
     print(simulate(grid, 5, adjacent2))

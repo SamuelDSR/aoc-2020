@@ -3,8 +3,9 @@
 
 from pathlib import Path
 
-def load_input(path):
-    with Path(path).open('r') as f:
+def load_input():
+    input_path = Path(__file__).parent / "input.txt"
+    with Path(input_path).open('r') as f:
         lines = f.read()
     passports = lines.split("\n\n")
     passports = [
@@ -71,13 +72,7 @@ def valid_passports_2(passports):
 
 
 if __name__ == '__main__':
-    passports = load_input("day-4-input.txt")
+    passports = load_input()
 
     print(valid_passports_1(passports))
     print(valid_passports_2(passports))
-
-    test_passports = load_input("test-input.txt")
-    print(valid_passports_2(test_passports))
-#
-    test_passports = load_input("test-input-2.txt")
-    print(valid_passports_2(test_passports))

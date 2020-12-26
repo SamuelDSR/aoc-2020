@@ -5,8 +5,9 @@ from pathlib import Path
 from collections import Counter
 
 
-def load_input(path):
-    with Path(path).open('r') as f:
+def load_input():
+    input_path = Path(__file__).parent / "input.txt"
+    with Path(input_path).open('r') as f:
         lines = f.readlines()
     return [int(l.strip()) for l in lines]
 
@@ -48,7 +49,7 @@ def part_2(numbers):
 
 
 if __name__ == '__main__':
-    numbers = load_input("day-10-input.txt")
+    numbers = load_input()
     print(part_1(numbers))
     print(part_2([1, 4, 5, 6, 7, 10, 11, 12, 15, 16, 19]))
     print(part_2(numbers))

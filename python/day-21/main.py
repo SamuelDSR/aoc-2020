@@ -6,8 +6,9 @@ from functools import reduce
 from collections import defaultdict
 
 
-def load_input(path):
-    with Path(path).open('r') as f:
+def load_input():
+    input_path = Path(__file__).parent / "input.txt"
+    with Path(input_path).open('r') as f:
         lines = f.readlines()
     foods = {}
     for food_idx, ln in enumerate(lines):
@@ -65,6 +66,6 @@ def part_2(final_mapping):
 
 
 if __name__ == '__main__':
-    foods = load_input("day-21-input.txt")
+    foods = load_input()
     final_mapping = part_1(foods)
     part_2(final_mapping)

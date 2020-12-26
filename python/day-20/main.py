@@ -38,7 +38,8 @@ class Tile:
 
     @classmethod
     def load_tiles_from_file(cls, path):
-        with Path(path).open('r') as f:
+        input_path = Path(__file__).parent / "input.txt"
+        with Path(input_path).open('r') as f:
             content = f.read().strip()
         return [
             Tile(int(tokens[0][5:-1]), tokens[1:])
@@ -245,7 +246,8 @@ def assemble_image(image_grid, remove_boarders=True):
 
 def part_2(image):
     # load sea monster
-    with Path("monster.txt").open("r") as f:
+    input_path = Path(__file__).parent / "monster.txt"
+    with input_path.open("r") as f:
         content = f.read()
     monster = [list(ln) for ln in content.split("\n") if ln != ""]
     monster_width, monster_height = len(monster[0]), len(monster)
@@ -291,7 +293,7 @@ def part_2(image):
 
 
 if __name__ == '__main__':
-    tiles = Tile.load_tiles_from_file("day-20-input.txt")
+    tiles = Tile.load_tiles_from_file("input.txt")
     image_grid = part_1(tiles)
     image = assemble_image(image_grid)
 

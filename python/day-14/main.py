@@ -5,8 +5,9 @@ from pathlib import Path
 from itertools import product
 
 
-def load_input(path):
-    with Path(path).open('r') as f:
+def load_input():
+    input_path = Path(__file__).parent / "input.txt"
+    with Path(input_path).open('r') as f:
         lines = f.readlines()
     instructions = []
     for ln in lines:
@@ -72,7 +73,7 @@ def part_2(instructions):
 
 
 if __name__ == '__main__':
-    instructions = load_input("day-14-input.txt")
+    instructions = load_input()
     assert mask(11, 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X', 36) == 73
     assert mask(101, 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X', 36) == 101
     print(part_1(instructions))

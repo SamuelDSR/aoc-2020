@@ -4,8 +4,9 @@
 from pathlib import Path
 
 
-def load_input(path):
-    with Path(path).open('r') as f:
+def load_input():
+    input_path = Path(__file__).parent / "input.txt"
+    with Path(input_path).open('r') as f:
         lines = f.readlines()
     return [(ln[0], int(ln[1:])) for ln in lines]
 
@@ -76,6 +77,6 @@ def move(instruction, step_func, direction=(1, 0), pos=(0, 0)):
 if __name__ == '__main__':
     print(rot((1, 0), 'L', 270))
     print(rot((1, 0), 'R', 180))
-    instructions = load_input("day-12-input.txt")
+    instructions = load_input()
     print(move(instructions, step))
     print(move(instructions, step2, direction=(10, 1), pos=(0, 0)))

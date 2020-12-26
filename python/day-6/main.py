@@ -3,8 +3,9 @@
 
 from pathlib import Path
 
-def load_input(path):
-    with Path(path).open('r') as f:
+def load_input():
+    input_path = Path(__file__).parent / "input.txt"
+    with Path(input_path).open('r') as f:
         lines = f.read()
     return lines.split("\n\n")
 
@@ -21,6 +22,6 @@ def part_2(group_answers):
     ])
 
 if __name__ == '__main__':
-    group_answers = load_input("day-6-input.txt")
+    group_answers = load_input()
     print(part_1(group_answers))
     print(part_2(group_answers))
